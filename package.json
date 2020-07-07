@@ -1,0 +1,15 @@
+{
+	"name": "matrix",
+	"version": "1.0.0",
+	"description": "2 dimensional array",
+	"main": "index.js",
+	"scripts": {
+		"test": "./node_modules/mocha/bin/mocha test*.js"
+	},
+	"author": "Adam Paulukanis",
+	"license": "ISC",
+	"dependencies": {
+		"mocha": "^8.0.1"
+	},
+	"type": "module"
+}
