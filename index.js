@@ -27,7 +27,7 @@ export default class Matrix {
 		this.content[y * this.width + x] = value;
 	}
 
-  // {
+	// {
 	// First I was thinking about using Array.prototype.map function, but it seems
 	// not that good.
 	toString () {
@@ -42,11 +42,11 @@ export default class Matrix {
 		return output;
 	}
 	// }
-}
 
-Matrix.prototype[Symbol.iterator] = function () {
-	return new MatrixIterator(this);
-};
+	[Symbol.iterator] () {
+		return new MatrixIterator(this);
+	}
+}
 
 class MatrixIterator {
 	constructor (matrix) {
