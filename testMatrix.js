@@ -73,7 +73,18 @@ describe('Matrix', function () {
     // }
   });
   // }
+
+  // {
+  describe('toString', function () {
+    // {
+    it('the output is a string', function () {
+      let napis = new Matrix(3, 3, (x, y) => `(${x} ${y})`).toString();
+      napis = napis.replace(/\s/g, ''); // get rid of tabs and spaces
+      assert(napis === '(00)(10)(20)(01)(11)(21)(02)(12)(22)');
+    });
+    // }
+  });
+  // }
+
 });
 // }
-
-// describe('MatrixIterator', function () {});

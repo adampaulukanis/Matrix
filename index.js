@@ -26,6 +26,22 @@ export default class Matrix {
 		}
 		this.content[y * this.width + x] = value;
 	}
+
+  // {
+	// First I was thinking about using Array.prototype.map function, but it seems
+	// not that good.
+	toString () {
+		let output = '';
+		for (let y = 0; y < this.height; ++y) {
+			for (let x = 0; x < this.width; ++x) {
+				output += this.get(x, y);
+				output += '\t';
+			}
+			output += '\n';
+		}
+		return output;
+	}
+	// }
 }
 
 Matrix.prototype[Symbol.iterator] = function () {
