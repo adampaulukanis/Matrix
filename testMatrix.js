@@ -60,6 +60,19 @@ describe('Matrix', function () {
     // }
   });
   // }
+
+  // {
+  describe('iterator', function () {
+    // {
+    it('looping over a matrix with for/of loop', function () {
+      let matrix = new Matrix(2, 2, (x, y) => `value ${x}, ${y}`);
+      for (let { x, y, value } of matrix) {
+        assert(value === `value ${x}, ${y}`);
+      }
+    });
+    // }
+  });
+  // }
 });
 // }
 
