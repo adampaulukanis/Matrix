@@ -14,15 +14,15 @@ export default class Matrix {
 	}
 
 	get (x, y) {
-		if (!(x < this.width && y < this.height)) {
-			throw new RangeError('Get parameters must be less than width and height');
+		if (!(x < this.width && x >= 0 && y < this.height && y >= 0)) {
+			throw new RangeError('Get parameters must be within range <0 ... width | height>');
 		}
 		return this.content[y * this.width + x];
 	}
 
 	set (x, y, value) {
-		if (!(x < this.width && y < this.height)) {
-			throw new RangeError('Get parameters must be less than width and height');
+		if (!(x < this.width && x >= 0 && y < this.height && y >= 0)) {
+			throw new RangeError('Get parameters must be within range <0 ... width | height>');
 		}
 		this.content[y * this.width + x] = value;
 

@@ -26,12 +26,45 @@ describe('Matrix', function () {
     // }
 
     // {
-    it('wrong parameters throw', function () {
+    it('wrong parameters throw when x is bigger than width', function () {
       assert.throws(
         () => {
-          new Matrix(10, 10).get(11, 11);
+          new Matrix(10, 10).get(11, 1);
         },
-        /^RangeError: Get parameters must be less than width and height$/
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when x is smaller than 0', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).get(-11, 1);
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when y is bigger than height', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).get(1, 100);
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when y is smaller than 0', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).get(1, -101);
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
       );
     });
     // }
@@ -49,12 +82,45 @@ describe('Matrix', function () {
     // }
 
     // {
-    it('wrong parameters throw', function () {
+    it('wrong parameters throw when x is bigger than width', function () {
       assert.throws(
         () => {
-          new Matrix(10, 10).set(15, 15, 'should not work');
+          new Matrix(10, 10).set(15, 5, 'should not work');
         },
-        /^RangeError: Get parameters must be less than width and height$/
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when x is smaller than 0', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).set(-15, 5, 'should not work');
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when y is bigger than height', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).set(5, 115, 'should not work');
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
+      );
+    });
+    // }
+
+    // {
+    it('wrong parameters throw when y is smaller than 0', function () {
+      assert.throws(
+        () => {
+          new Matrix(10, 10).set(5, -15, 'should not work');
+        },
+        /^RangeError: Get parameters must be within range <0 ... width | height>$/
       );
     });
     // }
