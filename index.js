@@ -25,6 +25,8 @@ export default class Matrix {
 			throw new RangeError('Get parameters must be less than width and height');
 		}
 		this.content[y * this.width + x] = value;
+
+		return this;
 	}
 
 	// {

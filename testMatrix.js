@@ -58,6 +58,14 @@ describe('Matrix', function () {
       );
     });
     // }
+
+    // {
+    it('you can chain it', function () {
+      let temp = new Matrix(2, 2);
+      temp.set(0, 0, 'happy matrix').set(1, 1, 'hyhy');
+      assert(temp.content.toString() === 'happy matrix,,,hyhy');
+    });
+    // }
   });
   // }
 
