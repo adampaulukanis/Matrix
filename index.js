@@ -45,6 +45,10 @@ export default class Matrix {
 	}
 	// }
 
+	isInside (x, y) {
+		return (x < this.width && x >= 0 && y < this.height && y >= 0);
+	}
+
 	[Symbol.iterator] () {
 		return new MatrixIterator(this);
 	}

@@ -160,5 +160,22 @@ describe('Matrix', function () {
   });
   // }
 
+  // {
+  describe('isInside', function () {
+    // {
+    it('the point is outside', function () {
+      let m = new Matrix(2, 2);
+      assert(m.isInside(3, 5) === false);
+    });
+    // }
+
+    // {
+    it('the point is inside', function () {
+      let m = new Matrix(2, 2);
+      assert(m.isInside(1, 1) === true);
+    });
+    // }
+  });
+  // }
 });
 // }
