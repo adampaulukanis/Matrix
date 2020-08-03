@@ -164,18 +164,75 @@ describe('Matrix', function () {
   describe('isInside', function () {
     // {
     it('the point is outside', function () {
-      let m = new Matrix(2, 2);
-      assert(m.isInside(3, 5) === false);
+      let matrix = new Matrix(2, 2);
+      assert(matrix.isInside(3, 5) === false);
     });
     // }
 
     // {
     it('the point is inside', function () {
-      let m = new Matrix(2, 2);
-      assert(m.isInside(1, 1) === true);
+      let matrix = new Matrix(2, 2);
+      assert(matrix.isInside(1, 1) === true);
     });
     // }
   });
   // }
+
+  describe('rotate', function () {
+    it('rotates to the right', function () {
+      let matrix = new Matrix(4, 4, (x, y) => {
+        if (x === y) return 'x';
+        else return '.';
+      });
+      let matrixHowItShouldLookLike = new Matrix(4, 4, (x, y) => {
+        if (x + y === 3)
+          return 'x';
+        else return '.';
+      });
+      assert(matrix.rotate().toString() === matrixHowItShouldLookLike.toString());
+    });
+
+    it('rotates twice', function () {
+      /* Why did I have to do this test? If rotate works, than rotate even six times should work. */
+      /* OK, perhaps it does not make sense but I need it for tetris. */
+      let matrix = new Matrix(4, 4, (x, y) => {
+        if (x === 0 && y === 0) return 1;
+        else if (x === 0 && y === 1) return 2;
+        else if (x === 0 && y === 2) return 3;
+        else if (x === 0 && y === 3) return 4;
+        else if (x === 1 && y === 0) return 5;
+        else if (x === 1 && y === 1) return 6;
+        else if (x === 1 && y === 2) return 7;
+        else if (x === 1 && y === 3) return 8;
+        else if (x === 2 && y === 0) return 9;
+        else if (x === 2 && y === 1) return 0;
+        else if (x === 2 && y === 2) return 11;
+        else if (x === 2 && y === 3) return 12;
+        else if (x === 3 && y === 0) return 13;
+        else if (x === 3 && y === 1) return 14;
+        else if (x === 3 && y === 2) return 15;
+        else if (x === 3 && y === 3) return 16;
+      });
+      let matrixHowItShouldLookLike = new Matrix(4, 4, (x, y) => {
+        if (x === 0 && y === 0) return 16;
+        else if (x === 1 && y === 0) return 12;
+        else if (x === 2 && y === 0) return 8;
+        else if (x === 3 && y === 0) return 4;
+        else if (x === 0 && y === 1) return 15;
+        else if (x === 1 && y === 1) return 11;
+        else if (x === 2 && y === 1) return 7;
+        else if (x === 3 && y === 1) return 3;
+        else if (x === 0 && y === 2) return 14;
+        else if (x === 1 && y === 2) return 0;
+        else if (x === 2 && y === 2) return 6;
+        else if (x === 3 && y === 2) return 2;
+        else if (x === 0 && y === 3) return 13;
+        else if (x === 1 && y === 3) return 9;
+        else if (x === 2 && y === 3) return 5;
+        else if (x === 3 && y === 3) return 1;
+      });
+      assert(matrix.rotate().rotate().toString() === matrixHowItShouldLookLike.toString());
+    });
+  });
 });
 // }

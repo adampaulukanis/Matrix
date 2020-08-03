@@ -45,6 +45,19 @@ export default class Matrix {
 	}
 	// }
 
+	rotate () {
+		// I did not mention it before but it rotates 90 degree right.
+		let matrix = new Matrix(this.width, this.height);
+		for (let x = 0; x < this.width; ++x) {
+			for (let y = 0; y < this.height; ++y) {
+				let value = this.get(x, y);
+				matrix.set(this.width -1 -y, x, value);
+			}
+		}
+		this.content = matrix.content;
+		return this;
+	}
+
 	isInside (x, y) {
 		return (x < this.width && x >= 0 && y < this.height && y >= 0);
 	}
