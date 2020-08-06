@@ -29,9 +29,6 @@ export default class Matrix {
 		return this;
 	}
 
-	// {
-	// First I was thinking about using Array.prototype.map function, but it seems
-	// not that good.
 	toString () {
 		let output = '';
 		for (let y = 0; y < this.height; ++y) {
@@ -43,19 +40,18 @@ export default class Matrix {
 		}
 		return output;
 	}
-	// }
 
 	rotate () {
-		// I did not mention it before but it rotates 90 degree right.
-		let matrix = new Matrix(this.width, this.height);
-		for (let x = 0; x < this.width; ++x) {
-			for (let y = 0; y < this.height; ++y) {
-				let value = this.get(x, y);
-				matrix.set(this.width -1 -y, x, value);
+		// Rotates 90 degree right.
+		let matrix = new Matrix(this.height, this.width);
+		for (let x = 0; x < matrix.width; ++x) {
+			for (let y = 0; y < matrix.height; ++y) {
+				let value = this.get(y, x);
+				matrix.set(matrix.width -1 -x, y, value);
 			}
 		}
 		this.content = matrix.content;
-		return this;
+		return matrix;
 	}
 
 	isInside (x, y) {
