@@ -58,6 +58,25 @@ export default class Matrix {
 		return (x < this.width && x >= 0 && y < this.height && y >= 0);
 	}
 
+	/**
+	 * add new column at the provided position OR at the end
+	 */
+	addColumn (column = [], pos = (this.width)) {
+		if (!Array.isArray(column))
+			return false;
+
+		if (column.length !== this.height)
+			return false;
+
+		if (pos < 0 || pos > this.width)
+			return false;
+
+		this.width += 1;
+		column.map((el, i) => this.content.splice((pos + this.width * i), 0, el));
+
+		return true;
+	}
+
 	[Symbol.iterator] () {
 		return new MatrixIterator(this);
 	}
