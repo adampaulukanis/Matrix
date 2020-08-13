@@ -61,20 +61,41 @@ export default class Matrix {
 	/**
 	 * add new column at the provided position OR at the end
 	 */
-	addColumn (column = [], pos = (this.width)) {
+	addColumn (column = [], pos = this.width) {
 		if (!Array.isArray(column))
-			return false;
+			throw new Error(`Parameter *column* must be of type Array`);
 
 		if (column.length !== this.height)
-			return false;
+			throw new Error(`Invalid length of *column* parameter`);
 
 		if (pos < 0 || pos > this.width)
-			return false;
+			throw new Error(`Invalid *pos* parameter`);
 
-		this.width += 1;
+		this.width++;
 		column.map((el, i) => this.content.splice((pos + this.width * i), 0, el));
 
-		return true;
+		return this;
+	}
+
+	/**
+	 * There is a question I am not sure about which way to go.
+	 * What is it? If the column is not an array, should it throw an error or return false?
+	 * The same applies to addColumn().
+	 */
+	addRow (column = [], pos = this.height) {
+		if (!Array.isArray(column))
+			throw new Error(`Parameter *column* must be of type Array`);
+
+		if (column.length !== this.width)
+			throw new Error(`Invalid length of *column* parameter`);
+
+		if (pos < 0 || pos > this.height)
+			throw new Error(`Invalid *pos* parameter`);
+
+		this.height++;
+		column.map(el => this.content.splice((pos * this.width), 0, el));
+
+		return this;
 	}
 
 	[Symbol.iterator] () {

@@ -224,15 +224,22 @@ describe('Matrix', function () {
 
   describe('addColumn', function () {
     it('first parameter must be an array', function () {
-      let matrix = new Matrix(1, 1);
-      assert(matrix.addColumn([1]) === true);
+      let counter = 1;
+      let matrix = new Matrix(1, 1, (x, y) => counter++);
+      assert(matrix.addColumn([9]).toString() === '1\t9\t\n');
     });
 
     it('if first parameter is not array it returns false', function () {
-      let matrix = new Matrix(1, 1);
-      assert(matrix.addColumn(1, 2) === false);
+      let matrix = new Matrix(10, 10, (x, y) => `${x}x${y}`);
+      assert.throws(
+        () => {
+          matrix.addColumn(1, 2);
+        },
+        /^Error: Parameter \*column\* must be of type Array$/
+      );
     });
 
+/*
     it('first parameter must be of size exactly same as hight of matrix', function () {
       let matrix = new Matrix(1, 2);
       assert(matrix.addColumn([1, 2]) === true);
@@ -273,5 +280,24 @@ describe('Matrix', function () {
       let matrix = new Matrix(1, 3);
       assert(matrix.addColumn([1, 2, 3]) === true);
     });
+*/
   });
+/*
+  describe('addRow', function () {
+    it('first parameter must be an array and of the right size', function () {
+      let matrix = new Matrix(2, 2);
+      assert(matrix.addRow(123) === false, 'should be an array');
+      assert(matrix.addRow([1]) === false, 'not enought elements');
+      assert(matrix.addRow([1, 2]) === true, 'should be ok');
+      assert(matrix.addRow([1, 2, 3]) === false, 'too many elements');
+    });
+
+    it('matrix(1, 4).addRow([a], 2) adds a new row', function () {
+      let counter = 1;
+      let matrix = new Matrix(1, 4, (x, y) => counter++);
+      matrix.addRow(['a'], i);
+      console.log(matrix.toString());
+    });
+  });
+*/
 });
