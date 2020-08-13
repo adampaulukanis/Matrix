@@ -41,7 +41,7 @@ export default class Matrix {
 		return output;
 	}
 
-	rotate () {
+	rotateRight () {
 		// Rotates 90 degree right.
 		let matrix = new Matrix(this.height, this.width);
 		for (let x = 0; x < matrix.width; ++x) {
@@ -52,6 +52,10 @@ export default class Matrix {
 		}
 		this.content = matrix.content;
 		return matrix;
+	}
+
+	rotateLeft () {
+		return this;
 	}
 
 	isInside (x, y) {

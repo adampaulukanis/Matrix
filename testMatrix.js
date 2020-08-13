@@ -143,8 +143,8 @@ describe('Matrix', function () {
     });
   });
 
-  describe('rotate', function () {
-    describe('rotate n x n matrix', function () {
+  describe('rotateRight', function () {
+    describe('rotateRight n x n matrix', function () {
       it('rotates to the right', function () {
         let matrix = new Matrix(4, 4, (x, y) => {
           if (x === y) return 'x';
@@ -155,12 +155,10 @@ describe('Matrix', function () {
             return 'x';
           else return '.';
         });
-        assert(matrix.rotate().toString() === matrixHowItShouldLookLike.toString());
+        assert(matrix.rotateRight().toString() === matrixHowItShouldLookLike.toString());
       });
 
       it('rotates twice', function () {
-        /* Why did I have to do this test? If rotate works, than rotate even six times should work. */
-        /* OK, perhaps it does not make sense but I need it for tetris. */
         let matrix = new Matrix(4, 4, (x, y) => {
           if (x === 0 && y === 0) return 1;
           else if (x === 0 && y === 1) return 2;
@@ -197,12 +195,12 @@ describe('Matrix', function () {
           else if (x === 2 && y === 3) return 5;
           else if (x === 3 && y === 3) return 1;
         });
-        assert(matrix.rotate().rotate().toString() === matrixHowItShouldLookLike.toString());
+        assert(matrix.rotateRight().rotateRight().toString() === matrixHowItShouldLookLike.toString());
       });
     });
 
-    describe('rotate n x m matrix', function () {
-      it('matrix(n, m).rotate() when n < m', function () {
+    describe('rotateRight n x m matrix', function () {
+      it('matrix(n, m).rotateRight() when n < m', function () {
         let counter = 0;
         const matrix = new Matrix(1, 4, (x, y) => {
           return counter++;
@@ -210,16 +208,23 @@ describe('Matrix', function () {
         const expectedMatrix = new Matrix(4, 1, (x, y) => {
           return (3 - (x + y));
         });
-        assert(matrix.rotate().toString() === expectedMatrix.toString());
+        assert(matrix.rotateRight().toString() === expectedMatrix.toString());
       });
 
-      it('matrix(n, m).rotate() when n > m', function () {
+      it('matrix(n, m).rotateRight() when n > m', function () {
         let counter = 0;
         const matrix = new Matrix(4, 1, (x, y) => ++counter);
         const expectedMatrix = new Matrix(1, 4, (x, y) => y + 1);
-        assert(matrix.rotate().toString() === expectedMatrix.toString());
+        assert(matrix.rotateRight().toString() === expectedMatrix.toString());
       });
     });
+  });
+
+  describe('rotateLeft', function () {
+    it('matrix(n, n).rotateLeft()');
+    it('matrix(n, m).rotateLeft() when n < m');
+    it('matrix(n, m).rotateLeft() when n > m');
+    it('rotates twice');
   });
 
   describe('addColumn', function () {
