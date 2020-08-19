@@ -7,7 +7,10 @@ describe('Matrix', function () {
   describe('constructor', function () {
     it('works', function () {
       let m = new Matrix(2, 2, (x, y) => `hi hi ${x} ${y}`);
-      assert(m.content.length === 4);
+    });
+
+    it('matrix(0, 0)', function () {
+      let matrix = new Matrix(0, 0);
     });
   });
 
@@ -221,10 +224,32 @@ describe('Matrix', function () {
   });
 
   describe('rotateLeft', function () {
-    it('matrix(n, n).rotateLeft()');
-    it('matrix(n, m).rotateLeft() when n < m');
-    it('matrix(n, m).rotateLeft() when n > m');
-    it('rotates twice');
+    it('matrix(n, n).rotateLeft()', function () {
+      let matrix = new Matrix(3, 3, (x, y) => (1 + x) * (15 + y));
+      let matrixHowItShouldLookLike = new Matrix(3, 3);
+      matrixHowItShouldLookLike.set(0, 0, 45).set(0, 1, 30).set(0, 2, 15);
+      matrixHowItShouldLookLike.set(1, 0, 48).set(1, 1, 32).set(1, 2, 16);
+      matrixHowItShouldLookLike.set(2, 0, 51).set(2, 1, 34).set(2, 2, 17);
+      assert(matrix.rotateLeft().toString() === matrixHowItShouldLookLike.toString());
+    });
+
+    it('matrix(n, m).rotateLeft() when n < m', function () {
+      let matrix = new Matrix(3, 4, (x, y) => (1 + x) * (15 + y));
+      let matrixHowItShouldLookLike = new Matrix(4, 3);
+      matrixHowItShouldLookLike.set(0, 0, 45).set(0, 1, 30).set(0, 2, 15);
+      matrixHowItShouldLookLike.set(1, 0, 48).set(1, 1, 32).set(1, 2, 16);
+      matrixHowItShouldLookLike.set(2, 0, 51).set(2, 1, 34).set(2, 2, 17);
+      matrixHowItShouldLookLike.set(3, 0, 54).set(3, 1, 36).set(3, 2, 18);
+      assert(matrix.rotateLeft().toString() === matrixHowItShouldLookLike.toString());
+    });
+
+    it('matrix(n, m).rotateLeft() when n > m', function () {
+      let matrix = new Matrix(2, 4, (x, y) => (1 + x) * (15 + y));
+      let matrixHowItShouldLookLike = new Matrix(4, 2);
+      matrixHowItShouldLookLike.set(0, 0, 30).set(1, 0, 32).set(2, 0, 34).set(3, 0, 36);
+      matrixHowItShouldLookLike.set(0, 1, 15).set(1, 1, 16).set(2, 1, 17).set(3, 1, 18);
+      assert(matrix.rotateLeft().toString() === matrixHowItShouldLookLike.toString());
+    });
   });
 
   describe('addColumn', function () {
