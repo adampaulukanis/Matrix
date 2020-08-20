@@ -259,7 +259,7 @@ describe('Matrix', function () {
       assert(matrix.addColumn([9]).toString() === '1\t9\t\n');
     });
 
-    it('if first parameter is not array it returns false', function () {
+    it('if first parameter is not array it throws', function () {
       let matrix = new Matrix(10, 10, (x, y) => `${x}x${y}`);
       assert.throws(
         () => {
@@ -269,50 +269,66 @@ describe('Matrix', function () {
       );
     });
 
-/*
-    it('first parameter must be of size exactly same as hight of matrix', function () {
+    it('first parameter must be of size exactly same as height of matrix', function () {
       let matrix = new Matrix(1, 2);
-      assert(matrix.addColumn([1, 2]) === true);
+      assert(matrix.addColumn([1, 2]).height === 2);
     });
 
-    it('if first parameter is array of different length than height of matrix it returns false', function () {
-      assert(new Matrix(1, 2).addColumn([1]) === false);
+    it('if first parameter is array of different length than height of matrix it throws', function () {
+      assert.throws(
+        () => {
+          new Matrix(1, 2).addColumn([1]);
+        },
+        /^Error: Invalid length of \*column\* parameter$/
+      );
     });
 
     it('with two parametes the second one is the position', function () {
       let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));
-      assert(matrix.addColumn(['a', 'b', 'c'], 2) === true);
+      matrix.addColumn(['a', 'b', 'c'], 2);
       assert(matrix.toString().replace(/\s/g, '_') === '1_2_a_3__2_3_b_4__3_4_c_5__');
     });
 
     it('second parameter defaults to the last column', function () {
       let matrix = new Matrix(2, 3, (x, y) => x + (y + 1));
-      assert(matrix.addColumn(['a', 'b', 'c']) === true);
+      matrix.addColumn(['a', 'b', 'c']);
       assert(matrix.toString().replace(/\s/g, '_') === '1_2_a__2_3_b__3_4_c__');
     });
 
-    it('if the second parameter is < 0 returns false', function () {
+    it('if the second parameter is < 0 it throws', function () {
       let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));
-      assert(matrix.addColumn(['a', 'b', 'c'], -1) === false);
+      assert.throws(
+        () => {
+          matrix.addColumn(['a', 'b', 'c'], -1);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
     });
 
-    it('if the second parameter is > width returns false', function () {
+    it('if the second parameter is > width than it throws', function () {
       let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));
-      assert(matrix.addColumn(['a', 'b', 'c'], 10) === false);
+      assert.throws(
+        () => {
+          matrix.addColumn(['a', 'b', 'c'], 10);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
     });
 
     it('matrix(4, 1).addColumn([x]) adds a new column', function () {
-      let matrix = new Matrix(4, 1);
-      assert(matrix.addColumn([1]) === true);
+      let matrix = new Matrix(4, 1, (x, y) => x + y + 2);
+      matrix.addColumn([1]);
+      assert(matrix.toString().replace(/\s/g, '_') === '2_3_4_5_1__');
     });
 
     it('matrix(1, 3).addColumn([x, y, z]) adds a new column', function () {
-      let matrix = new Matrix(1, 3);
-      assert(matrix.addColumn([1, 2, 3]) === true);
+      let matrix = new Matrix(1, 3, (x, y) => x + y + 7);
+      matrix.addColumn([1, 2, 3]);
+      assert(matrix.toString().replace(/\s/g, '_') === '7_1__8_2__9_3__');
     });
-*/
   });
-/*
+
+  /*
   describe('addRow', function () {
     it('first parameter must be an array and of the right size', function () {
       let matrix = new Matrix(2, 2);
@@ -329,5 +345,5 @@ describe('Matrix', function () {
       console.log(matrix.toString());
     });
   });
-*/
+  */
 });

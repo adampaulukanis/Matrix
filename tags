@@ -33,11 +33,11 @@ it	testMatrix.js	/^    it('Matrix looks like this [1 2 3]', function () {$/;"	M
 it	testMatrix.js	/^    it('Matrix looks like this |1|\\\\n|2|\\\\n|3|', function () {$/;"	M
 it	testMatrix.js	/^    it('first parameter must be an array and of the right size', function () {$/;"	M
 it	testMatrix.js	/^    it('first parameter must be an array', function () {$/;"	M
-it	testMatrix.js	/^    it('first parameter must be of size exactly same as hight of matrix', function () {$/;"	M
-it	testMatrix.js	/^    it('if first parameter is array of different length than height of matrix it returns false', function () {$/;"	M
-it	testMatrix.js	/^    it('if first parameter is not array it returns false', function () {$/;"	M
-it	testMatrix.js	/^    it('if the second parameter is < 0 returns false', function () {$/;"	M
-it	testMatrix.js	/^    it('if the second parameter is > width returns false', function () {$/;"	M
+it	testMatrix.js	/^    it('first parameter must be of size exactly same as height of matrix', function () {$/;"	M
+it	testMatrix.js	/^    it('if first parameter is array of different length than height of matrix it throws', function () {$/;"	M
+it	testMatrix.js	/^    it('if first parameter is not array it throws', function () {$/;"	M
+it	testMatrix.js	/^    it('if the second parameter is < 0 it throws', function () {$/;"	M
+it	testMatrix.js	/^    it('if the second parameter is > width than it throws', function () {$/;"	M
 it	testMatrix.js	/^    it('looping over a matrix with for\/of loop', function () {$/;"	M
 it	testMatrix.js	/^    it('matrix(0, 0)', function () {$/;"	M
 it	testMatrix.js	/^    it('matrix(1, 3).addColumn([x, y, z]) adds a new column', function () {$/;"	M
@@ -71,7 +71,8 @@ matrix	testMatrix.js	/^      let matrix = new Matrix(0, 0);$/;"	V
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 1, (x, y) => counter++);$/;"	F
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 1, (x, y) => counter++);$/;"	V
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 2);$/;"	V
-matrix	testMatrix.js	/^      let matrix = new Matrix(1, 3);$/;"	V
+matrix	testMatrix.js	/^      let matrix = new Matrix(1, 3, (x, y) => x + y + 7);$/;"	F
+matrix	testMatrix.js	/^      let matrix = new Matrix(1, 3, (x, y) => x + y + 7);$/;"	V
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 3, (x, y) => y + 1);$/;"	F
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 3, (x, y) => y + 1);$/;"	V
 matrix	testMatrix.js	/^      let matrix = new Matrix(1, 4, (x, y) => counter++);$/;"	F
@@ -93,7 +94,8 @@ matrix	testMatrix.js	/^      let matrix = new Matrix(3, 3, (x, y) => x + (y + 1)
 matrix	testMatrix.js	/^      let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));$/;"	V
 matrix	testMatrix.js	/^      let matrix = new Matrix(3, 4, (x, y) => (1 + x) * (15 + y));$/;"	F
 matrix	testMatrix.js	/^      let matrix = new Matrix(3, 4, (x, y) => (1 + x) * (15 + y));$/;"	V
-matrix	testMatrix.js	/^      let matrix = new Matrix(4, 1);$/;"	V
+matrix	testMatrix.js	/^      let matrix = new Matrix(4, 1, (x, y) => x + y + 2);$/;"	F
+matrix	testMatrix.js	/^      let matrix = new Matrix(4, 1, (x, y) => x + y + 2);$/;"	V
 matrixHowItShouldLookLike	testMatrix.js	/^        let matrixHowItShouldLookLike = new Matrix(4, 4, (x, y) => {$/;"	F
 matrixHowItShouldLookLike	testMatrix.js	/^        let matrixHowItShouldLookLike = new Matrix(4, 4, (x, y) => {$/;"	V
 matrixHowItShouldLookLike	testMatrix.js	/^      let matrixHowItShouldLookLike = new Matrix(3, 3);$/;"	V
