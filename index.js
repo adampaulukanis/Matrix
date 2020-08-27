@@ -86,11 +86,6 @@ export default class Matrix {
 		return this;
 	}
 
-	/**
-	 * There is a question I am not sure about which way to go.
-	 * What is it? If the column is not an array, should it throw an error or return false?
-	 * The same applies to addColumn().
-	 */
 	addRow (column = [], pos = this.height) {
 		if (!Array.isArray(column))
 			throw new Error(`Parameter *column* must be of type Array`);
@@ -102,6 +97,7 @@ export default class Matrix {
 			throw new Error(`Invalid *pos* parameter`);
 
 		this.height++;
+		column = column.reverse();
 		column.map(el => this.content.splice((pos * this.width), 0, el));
 
 		return this;

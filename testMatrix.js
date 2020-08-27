@@ -328,22 +328,56 @@ describe('Matrix', function () {
     });
   });
 
-  /*
-  describe('addRow', function () {
-    it('first parameter must be an array and of the right size', function () {
-      let matrix = new Matrix(2, 2);
-      assert(matrix.addRow(123) === false, 'should be an array');
-      assert(matrix.addRow([1]) === false, 'not enought elements');
-      assert(matrix.addRow([1, 2]) === true, 'should be ok');
-      assert(matrix.addRow([1, 2, 3]) === false, 'too many elements');
+  describe('addRow()', function () {
+    it('throws because first parameter is NOT array', function () {
+      assert.throws(
+        () => {
+          let counter = 1;
+          new Matrix(3, 2, (x, y) => counter++).addRow(12, 13, 14);
+        },
+        /^Error: Parameter \*column\* must be of type Array$/
+      );
     });
 
-    it('matrix(1, 4).addRow([a], 2) adds a new row', function () {
-      let counter = 1;
-      let matrix = new Matrix(1, 4, (x, y) => counter++);
-      matrix.addRow(['a'], i);
-      console.log(matrix.toString());
+    it(`it's ok when first parameter is array`, function () {
+      new Matrix(3, 2).addRow([1, 2, 3]);
+    });
+
+    it('throws when length of first parameter is different from width of matrix', function () {
+      assert.throws(
+        () => {
+          new Matrix(2, 3).addRow([1]);
+        },
+        /^Error: Invalid length of \*column\* parameter$/
+      );
+    });
+
+    it('throws when second parameter is less than 0', function () {
+      assert.throws(
+        () => {
+          new Matrix(2, 5).addRow([1, 2], -4);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('throws when second parameter is greater than height', function () {
+      assert.throws(
+        () => {
+          new Matrix(2, 5).addRow([1, 2], 10);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('adds new row, no second parameter', function () {
+      let matrix = new Matrix(2, 5, (x, y) => '.').addRow([1, 2]).toString().replace(/\t/g, 't').replace(/\n/g, 'n');
+      assert(matrix === '.t.tn.t.tn.t.tn.t.tn.t.tn1t2tn');
+    });
+
+    it('adds new row in the middle', function () {
+      let matrix = new Matrix(2, 5, (x, y) => '.').addRow([1, 2], 1).toString().replace(/\t/g, 't').replace(/\n/g, 'n');
+      assert(matrix === '.t.tn1t2tn.t.tn.t.tn.t.tn.t.tn');
     });
   });
-  */
 });
