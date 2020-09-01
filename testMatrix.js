@@ -380,4 +380,42 @@ describe('Matrix', function () {
       assert(matrix === '.t.tn1t2tn.t.tn.t.tn.t.tn.t.tn');
     });
   });
+
+  describe('deleteColumn(pos)', function () {
+    it('throws when "pos" is less than 0', function () {
+      let matrix = new Matrix(2, 4, (x, y) => '.');
+      assert.throws(
+        () => {
+          matrix.deleteColumn(-2);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('throws when "pos" is greater than width', function () {
+      let matrix = new Matrix(2, 4, (x, y) => '.');
+      assert.throws(
+        () => {
+          matrix.deleteColumn(10);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('throws when "pos" is not number', function () {
+      let matrix = new Matrix(2, 4, (x, y) => '.');
+      assert.throws(
+        () => {
+          matrix.deleteColumn('string');
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('deletes the proper column', function () {
+      let matrix = new Matrix(10, 8, (x, y) => x * 7 + y * 3).addColumn([1, 2, 3, 4, 8, 0, 8, 0], 1);
+      let matrixHowItShouldLookLike = new Matrix(10, 8, (x, y) => x * 7 + y * 3);
+      assert(matrix.deleteColumn(1).toString() === matrixHowItShouldLookLike.toString());
+    });
+  });
 });

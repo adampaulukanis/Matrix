@@ -103,6 +103,18 @@ export default class Matrix {
 		return this;
 	}
 
+	deleteColumn (pos) {
+		if (pos < 0 || pos > this.width || typeof pos !== 'number')
+			throw new Error(`Invalid *pos* parameter`);
+
+		for (let i = 0; i < this.height; ++i) {
+			this.content.splice((pos + i * this.width) - i, 1);
+		}
+		this.width--;
+
+		return this;
+	}
+
 	[Symbol.iterator] () {
 		return new MatrixIterator(this);
 	}
