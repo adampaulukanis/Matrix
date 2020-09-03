@@ -14,7 +14,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('get', function () {
+  describe('get()', function () {
     it('retrieves the correct value', function () {
       let temp = new Matrix(1, 1, (x, y) => `Matrix${x} ${y}`);
       assert(temp.get(0, 0) === `Matrix0 0`);
@@ -57,7 +57,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('set', function () {
+  describe('set()', function () {
     it('should work', function () {
       let temp = new Matrix(1, 1);
       temp.set(0, 0, 'happy matrix');
@@ -116,7 +116,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('toString', function () {
+  describe('toString()', function () {
     it('the output is a string', function () {
       let napis = new Matrix(3, 3, (x, y) => `(${x} ${y})`).toString();
       napis = napis.replace(/\s/g, ''); // get rid of tabs and spaces
@@ -134,7 +134,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('isInside', function () {
+  describe('isInside()', function () {
     it('the point is outside', function () {
       let matrix = new Matrix(2, 2);
       assert(matrix.isInside(3, 5) === false);
@@ -146,7 +146,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('rotateRight', function () {
+  describe('rotateRight()', function () {
     describe('rotateRight n x n matrix', function () {
       it('rotates to the right', function () {
         let matrix = new Matrix(4, 4, (x, y) => {
@@ -223,7 +223,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('rotateLeft', function () {
+  describe('rotateLeft()', function () {
     it('matrix(n, n).rotateLeft()', function () {
       let matrix = new Matrix(3, 3, (x, y) => (1 + x) * (15 + y));
       let matrixHowItShouldLookLike = new Matrix(3, 3);
@@ -252,7 +252,7 @@ describe('Matrix', function () {
     });
   });
 
-  describe('addColumn', function () {
+  describe('addColumn()', function () {
     it('first parameter must be an array', function () {
       let counter = 1;
       let matrix = new Matrix(1, 1, (x, y) => counter++);
@@ -413,9 +413,52 @@ describe('Matrix', function () {
     });
 
     it('deletes the proper column', function () {
-      let matrix = new Matrix(10, 8, (x, y) => x * 7 + y * 3).addColumn([1, 2, 3, 4, 8, 0, 8, 0], 1);
+      const whichColumn = 1;
+      let matrix = new Matrix(10, 8, (x, y) => x * 7 + y * 3).addColumn([1, 2, 3, 4, 8, 0, 8, 0], whichColumn);
       let matrixHowItShouldLookLike = new Matrix(10, 8, (x, y) => x * 7 + y * 3);
-      assert(matrix.deleteColumn(1).toString() === matrixHowItShouldLookLike.toString());
+      assert(matrix.deleteColumn(whichColumn).toString() === matrixHowItShouldLookLike.toString());
+    });
+  });
+
+  describe('deleteRow(pos)', function () {
+    it('throws when "pos" is less than 0', function () {
+      const whichRow = -2;
+      let matrix = new Matrix(4, 6, (x, y) => x * 3 + y * 5);
+      assert.throws(
+        () => {
+          matrix.deleteRow(whichRow);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('throws when "pos" is greater than width', function () {
+      const whichRow = 12;
+      let matrix = new Matrix(4, 6, (x, y) => x * 3 + y * 5);
+      assert.throws(
+        () => {
+          matrix.deleteRow(whichRow);
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('throws when "pos" is not number', function () {
+      let matrix = new Matrix(2, 4, (x, y) => '.');
+      assert.throws(
+        () => {
+          matrix.deleteColumn('string');
+        },
+        /^Error: Invalid \*pos\* parameter$/
+      );
+    });
+
+    it('deletes the proper row', function () {
+      const whichRow = 2;
+      let matrix = new Matrix(10, 10, (x, y) => x * 3 + y * 5).addRow(['a', 'b', 'c', 'd', 'e', 'f', '7', 'y', 'aa', 'adam'], whichRow);
+      let matrixHowItShouldLookLike = new Matrix(10, 10, (x, y) => x * 3 + y * 5);
+      matrix.deleteRow(whichRow);
+      assert(matrix.toString() === matrixHowItShouldLookLike.toString());
     });
   });
 });

@@ -115,6 +115,16 @@ export default class Matrix {
 		return this;
 	}
 
+	deleteRow (pos) {
+		if (pos < 0 || pos > this.height || typeof pos !== 'number')
+			throw new Error(`Invalid *pos* parameter`);
+
+		this.content.splice(pos * this.width, this.width);
+		this.height--;
+
+		return this;
+	}
+
 	[Symbol.iterator] () {
 		return new MatrixIterator(this);
 	}
