@@ -36,40 +36,10 @@ describe('Matrix', function () {
             assert(temp.get(0, 0) === testtext);
         });
 
-        it('wrong parameters throw when x is bigger than width', function () {
-            assert.throws(
-                () => {
-                    new Matrix(10, 10).set(15, 5, 'should not work');
-                },
-                /^RangeError: Get parameters must be within range <0 ... width | height>$/
-            );
-        });
-
-        it('wrong parameters throw when x is smaller than 0', function () {
-            assert.throws(
-                () => {
-                    new Matrix(10, 10).set(-15, 5, 'should not work');
-                },
-                /^RangeError: Get parameters must be within range <0 ... width | height>$/
-            );
-        });
-
-        it('wrong parameters throw when y is bigger than height', function () {
-            assert.throws(
-                () => {
-                    new Matrix(10, 10).set(5, 115, 'should not work');
-                },
-                /^RangeError: Get parameters must be within range <0 ... width | height>$/
-            );
-        });
-
-        it('wrong parameters throw when y is smaller than 0', function () {
-            assert.throws(
-                () => {
-                    new Matrix(10, 10).set(5, -15, 'should not work');
-                },
-                /^RangeError: Get parameters must be within range <0 ... width | height>$/
-            );
+        it('when it does not make sense, return no sense', function () {
+            const temptext = 'Kaszanka';
+            let temp = new Matrix(3, 3).set(-123, +456, temptext);;
+            assert(temp.get(-123, +456) === temptext);
         });
 
         it('you can chain it', function () {
@@ -231,28 +201,9 @@ describe('Matrix', function () {
             assert(matrix.addColumn([9]).toString() === '1\t9\t\n');
         });
 
-        it('if first parameter is not array it throws', function () {
-            let matrix = new Matrix(10, 10, (x, y) => `${x}x${y}`);
-            assert.throws(
-                () => {
-                    matrix.addColumn(1, 2);
-                },
-                /^Error: Parameter \*column\* must be of type Array$/
-            );
-        });
-
         it('first parameter must be of size exactly same as height of matrix', function () {
             let matrix = new Matrix(1, 2);
             assert(matrix.addColumn([1, 2]).height === 2);
-        });
-
-        it('if first parameter is array of different length than height of matrix it throws', function () {
-            assert.throws(
-                () => {
-                    new Matrix(1, 2).addColumn([1]);
-                },
-                /^Error: Invalid length of \*column\* parameter$/
-            );
         });
 
         it('with two parametes the second one is the position', function () {
@@ -265,26 +216,6 @@ describe('Matrix', function () {
             let matrix = new Matrix(2, 3, (x, y) => x + (y + 1));
             matrix.addColumn(['a', 'b', 'c']);
             assert(matrix.toString().replace(/\s/g, '_') === '1_2_a__2_3_b__3_4_c__');
-        });
-
-        it('if the second parameter is < 0 it throws', function () {
-            let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));
-            assert.throws(
-                () => {
-                    matrix.addColumn(['a', 'b', 'c'], -1);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('if the second parameter is > width than it throws', function () {
-            let matrix = new Matrix(3, 3, (x, y) => x + (y + 1));
-            assert.throws(
-                () => {
-                    matrix.addColumn(['a', 'b', 'c'], 10);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
         });
 
         it('matrix(4, 1).addColumn([x]) adds a new column', function () {
@@ -301,45 +232,8 @@ describe('Matrix', function () {
     });
 
     describe('addRow()', function () {
-        it('throws because first parameter is NOT array', function () {
-            assert.throws(
-                () => {
-                    let counter = 1;
-                    new Matrix(3, 2, (x, y) => counter++).addRow(12, 13, 14);
-                },
-                /^Error: Parameter \*column\* must be of type Array$/
-            );
-        });
-
         it(`it's ok when first parameter is array`, function () {
             new Matrix(3, 2).addRow([1, 2, 3]);
-        });
-
-        it('throws when length of first parameter is different from width of matrix', function () {
-            assert.throws(
-                () => {
-                    new Matrix(2, 3).addRow([1]);
-                },
-                /^Error: Invalid length of \*column\* parameter$/
-            );
-        });
-
-        it('throws when second parameter is less than 0', function () {
-            assert.throws(
-                () => {
-                    new Matrix(2, 5).addRow([1, 2], -4);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('throws when second parameter is greater than height', function () {
-            assert.throws(
-                () => {
-                    new Matrix(2, 5).addRow([1, 2], 10);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
         });
 
         it('adds new row, no second parameter', function () {
@@ -354,36 +248,6 @@ describe('Matrix', function () {
     });
 
     describe('deleteColumn(pos)', function () {
-        it('throws when "pos" is less than 0', function () {
-            let matrix = new Matrix(2, 4, (x, y) => '.');
-            assert.throws(
-                () => {
-                    matrix.deleteColumn(-2);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('throws when "pos" is greater than width', function () {
-            let matrix = new Matrix(2, 4, (x, y) => '.');
-            assert.throws(
-                () => {
-                    matrix.deleteColumn(10);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('throws when "pos" is not number', function () {
-            let matrix = new Matrix(2, 4, (x, y) => '.');
-            assert.throws(
-                () => {
-                    matrix.deleteColumn('string');
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
         it('deletes the proper column', function () {
             const whichColumn = 1;
             let matrix = new Matrix(10, 8, (x, y) => x * 7 + y * 3).addColumn([1, 2, 3, 4, 8, 0, 8, 0], whichColumn);
@@ -393,38 +257,6 @@ describe('Matrix', function () {
     });
 
     describe('deleteRow(pos)', function () {
-        it('throws when "pos" is less than 0', function () {
-            const whichRow = -2;
-            let matrix = new Matrix(4, 6, (x, y) => x * 3 + y * 5);
-            assert.throws(
-                () => {
-                    matrix.deleteRow(whichRow);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('throws when "pos" is greater than width', function () {
-            const whichRow = 12;
-            let matrix = new Matrix(4, 6, (x, y) => x * 3 + y * 5);
-            assert.throws(
-                () => {
-                    matrix.deleteRow(whichRow);
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
-        it('throws when "pos" is not number', function () {
-            let matrix = new Matrix(2, 4, (x, y) => '.');
-            assert.throws(
-                () => {
-                    matrix.deleteColumn('string');
-                },
-                /^Error: Invalid \*pos\* parameter$/
-            );
-        });
-
         it('deletes the proper row', function () {
             const whichRow = 2;
             let matrix = new Matrix(10, 10, (x, y) => x * 3 + y * 5).addRow(['a', 'b', 'c', 'd', 'e', 'f', '7', 'y', 'aa', 'adam'], whichRow);

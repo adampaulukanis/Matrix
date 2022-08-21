@@ -66,13 +66,13 @@ export default class Matrix {
     */
     addColumn (column = [], pos = this.width) {
         if (!Array.isArray(column))
-            throw new Error(`Parameter *column* must be of type Array`);
+            return;
 
         if (column.length !== this.height)
-            throw new Error(`Invalid length of *column* parameter`);
+            return;
 
         if (pos < 0 || pos > this.width)
-            throw new Error(`Invalid *pos* parameter`);
+            return;
 
         this.width++;
         column.map((el, i) => this.content.splice((pos + this.width * i), 0, el));
@@ -82,13 +82,13 @@ export default class Matrix {
 
     addRow (column = [], pos = this.height) {
         if (!Array.isArray(column))
-            throw new Error(`Parameter *column* must be of type Array`);
+            return;
 
         if (column.length !== this.width)
-            throw new Error(`Invalid length of *column* parameter`);
+            return;
 
         if (pos < 0 || pos > this.height)
-            throw new Error(`Invalid *pos* parameter`);
+            return;
 
         this.height++;
         column = column.reverse();
@@ -99,7 +99,7 @@ export default class Matrix {
 
     deleteColumn (pos) {
         if (pos < 0 || pos > this.width || typeof pos !== 'number')
-            throw new Error(`Invalid *pos* parameter`);
+            return;
 
         for (let i = 0; i < this.height; ++i) {
             this.content.splice((pos + i * this.width) - i, 1);
@@ -111,7 +111,7 @@ export default class Matrix {
 
     deleteRow (pos) {
         if (pos < 0 || pos > this.height || typeof pos !== 'number')
-            throw new Error(`Invalid *pos* parameter`);
+            return;
 
         this.content.splice(pos * this.width, this.width);
         this.height--;
