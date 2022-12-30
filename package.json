@@ -9,7 +9,7 @@
     "author": "Adam Paulukanis",
     "license": "ISC",
     "dependencies": {
-        "mocha": "^8.1.1"
+        "mocha": "^8.4.0"
     },
     "type": "module"
 }
