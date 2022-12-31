@@ -4,7 +4,7 @@
     "description": "2 dimensional array",
     "main": "index.js",
     "scripts": {
-        "test": "./node_modules/mocha/bin/mocha test*.js"
+        "test": "./node_modules/mocha/bin/mocha.js test*.js"
     },
     "author": "Adam Paulukanis",
     "license": "ISC",
